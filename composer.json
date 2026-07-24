@@ -1,0 +1,41 @@
+{
+    "name": "livetennisapi/livetennisapi",
+    "description": "Official PHP client for the Live Tennis API — real-time tennis scores, players, fixtures, match-winner market prices and model win-probability for ATP, WTA, Challenger and ITF.",
+    "type": "library",
+    "license": "MIT",
+    "homepage": "https://livetennisapi.com",
+    "keywords": ["tennis", "tennis-api", "live-scores", "livescore", "sports", "sports-api", "atp", "wta", "itf", "odds", "api-client", "sdk"],
+    "authors": [
+        { "name": "Live Tennis API" }
+    ],
+    "require": {
+        "php": ">=8.1",
+        "psr/http-client": "^1.0",
+        "psr/http-factory": "^1.0",
+        "psr/http-message": "^1.1 || ^2.0",
+        "php-http/discovery": "^1.19"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^10.5",
+        "guzzlehttp/guzzle": "^7.8"
+    },
+    "suggest": {
+        "guzzlehttp/guzzle": "A PSR-18 HTTP client and PSR-17 factories the library will auto-discover",
+        "symfony/http-client": "An alternative PSR-18 HTTP client the library will auto-discover"
+    },
+    "autoload": {
+        "psr-4": { "LiveTennisApi\\": "src/" }
+    },
+    "autoload-dev": {
+        "psr-4": { "LiveTennisApi\\Tests\\": "tests/" }
+    },
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "php-http/discovery": true
+        }
+    },
+    "scripts": {
+        "test": "phpunit"
+    }
+}
