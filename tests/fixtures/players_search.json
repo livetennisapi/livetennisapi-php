@@ -1,0 +1,29 @@
+{
+  "data": [
+    {
+      "backhand": null,
+      "birthday": "1987-05-22",
+      "country": "srb",
+      "data_completeness": {
+        "known": 4,
+        "missing": [
+          "backhand"
+        ],
+        "of": 5
+      },
+      "hand": "R",
+      "id": 1218,
+      "is_doubles_team": false,
+      "name": "Novak Djokovic",
+      "ranking": 8,
+      "ranking_movement": "same",
+      "ranking_points": 3760,
+      "tour": null
+    }
+  ],
+  "meta": {
+    "count": 1,
+    "limit": 2,
+    "offset": 0
+  }
+}

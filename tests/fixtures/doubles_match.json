@@ -1,0 +1,53 @@
+{
+  "event_status": null,
+  "format": "BO3",
+  "id": 22210,
+  "indoor": false,
+  "is_doubles": true,
+  "players": {
+    "p1": {
+      "backhand": null,
+      "birthday": null,
+      "country": null,
+      "data_completeness": {
+        "known": null,
+        "missing": [],
+        "note": "doubles team \u2014 per-player profile fields do not apply",
+        "of": null
+      },
+      "hand": null,
+      "id": 1417,
+      "is_doubles_team": true,
+      "name": "Schnaitter / Wallner",
+      "ranking": null,
+      "ranking_movement": null,
+      "ranking_points": null,
+      "tour": "ATP"
+    },
+    "p2": {
+      "backhand": null,
+      "birthday": null,
+      "country": null,
+      "data_completeness": {
+        "known": null,
+        "missing": [],
+        "note": "doubles team \u2014 per-player profile fields do not apply",
+        "of": null
+      },
+      "hand": null,
+      "id": 12360,
+      "is_doubles_team": true,
+      "name": "Herbert / Krawietz",
+      "ranking": null,
+      "ranking_movement": null,
+      "ranking_points": null,
+      "tour": "ATP"
+    }
+  },
+  "round": "ATP Kitzbuhel - Semi-finals",
+  "scheduled_time": "2026-07-24T08:30:00Z",
+  "score": null,
+  "status": "upcoming",
+  "surface": "clay",
+  "tournament": "Kitzbuhel"
+}
