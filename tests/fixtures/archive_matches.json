@@ -1,0 +1,79 @@
+{
+  "data": [
+    {
+      "id": 1402276,
+      "source_id": "2022-8888-201",
+      "tour": "atp",
+      "level": "G",
+      "tournament": "Wimbledon",
+      "surface": "grass",
+      "draw_size": 128,
+      "event_date": "2022-06-27",
+      "round": "F",
+      "best_of": 5,
+      "minutes": 161,
+      "winner": {
+        "name": "Novak Djokovic",
+        "hand": "R",
+        "country": "srb",
+        "rank": 3,
+        "seed": 1,
+        "player_id": 104925,
+        "height_cm": 188,
+        "age": 35.1,
+        "entry": null
+      },
+      "loser": {
+        "name": "Nick Kyrgios",
+        "hand": "R",
+        "country": "aus",
+        "rank": 40,
+        "seed": null,
+        "player_id": 106401,
+        "height_cm": 193,
+        "age": 27.2,
+        "entry": null
+      },
+      "score": "4-6 6-3 6-4 7-6(3)",
+      "outcome": "completed"
+    },
+    {
+      "id": 71322,
+      "source_id": "1969-580-127",
+      "tour": "atp",
+      "level": "G",
+      "tournament": "Australian Open",
+      "surface": "grass",
+      "draw_size": 48,
+      "event_date": "1969-01-20",
+      "round": "R64",
+      "best_of": 5,
+      "minutes": null,
+      "winner": {
+        "name": "Rod Laver",
+        "hand": "L",
+        "country": "aus",
+        "rank": null,
+        "seed": 1,
+        "player_id": 100437,
+        "height_cm": 173,
+        "age": 30.4,
+        "entry": null
+      },
+      "loser": {
+        "name": "Massimo Di Domenico",
+        "hand": "R",
+        "country": "ita",
+        "rank": null,
+        "seed": null,
+        "player_id": 100244,
+        "height_cm": null,
+        "age": 24.9,
+        "entry": null
+      },
+      "score": "6-2 6-3 RET",
+      "outcome": "retired"
+    }
+  ],
+  "meta": {"limit": 50, "offset": 0, "count": 2, "total": 1485752, "has_more": true}
+}

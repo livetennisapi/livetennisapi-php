@@ -1,0 +1,103 @@
+{
+  "match": {
+    "id": 21980,
+    "tournament": "Cincinnati Open",
+    "tour": "atp",
+    "tournament_id": "atp-cincinnati-singles",
+    "surface": "hard",
+    "indoor": false,
+    "format": "BO3",
+    "round": "Quarterfinal",
+    "round_code": "QF",
+    "status": "completed",
+    "event_status": null,
+    "is_doubles": false,
+    "scheduled_time": "2026-08-05T17:00:00Z",
+    "players": {
+      "p1": {"id": 3819, "name": "Jannik Sinner", "tour": "atp", "country": "ita", "ranking": 1},
+      "p2": {"id": 5122, "name": "Ben Shelton", "tour": "atp", "country": "usa", "ranking": 6}
+    },
+    "score": {
+      "sets": [2, 0],
+      "games": [[7, 6], [6, 4]],
+      "points": ["0", "0"],
+      "server": null,
+      "is_tiebreak": false,
+      "timestamp": "2026-08-05T18:41:03Z"
+    },
+    "winner": 1
+  },
+  "tape": [
+    {
+      "sets": [0, 0],
+      "games": [[0], [0]],
+      "points": ["0", "0"],
+      "server": 1,
+      "is_tiebreak": false,
+      "win_probability_p1": 0.71,
+      "danger": 0.05,
+      "timestamp": "2026-08-05T17:02:11Z",
+      "point_winner": null
+    },
+    {
+      "sets": [0, 0],
+      "games": [[0], [0]],
+      "points": ["15", "0"],
+      "server": 1,
+      "is_tiebreak": false,
+      "win_probability_p1": 0.72,
+      "danger": 0.04,
+      "timestamp": "2026-08-05T17:02:49Z",
+      "point_winner": 1
+    },
+    {
+      "sets": [0, 0],
+      "games": [[6], [6]],
+      "points": ["6", "5"],
+      "server": 2,
+      "is_tiebreak": true,
+      "win_probability_p1": 0.81,
+      "danger": 0.22,
+      "timestamp": "2026-08-05T17:58:30Z",
+      "point_winner": 2
+    },
+    {
+      "sets": [1, 0],
+      "games": [[7, 0], [6, 0]],
+      "points": ["0", "0"],
+      "server": 2,
+      "is_tiebreak": false,
+      "win_probability_p1": 0.86,
+      "danger": 0.03,
+      "timestamp": "2026-08-05T18:00:07Z",
+      "point_winner": 1
+    }
+  ],
+  "tiebreaks": [
+    {"p1": 7, "p2": 5},
+    null
+  ],
+  "profiles": [
+    {
+      "win_probability_p1": 0.69,
+      "expected_closeness": 0.55,
+      "volatility_rating": "med",
+      "stage": "pregame",
+      "model_version": "s3",
+      "input_state": null,
+      "key_factors": ["serve dominance", "hard-court form"],
+      "created_at": "2026-08-05T15:10:00Z"
+    }
+  ],
+  "meta": {
+    "match_id": 21980,
+    "rows": 4,
+    "coverage": "from_start",
+    "point_source": "observed",
+    "raw_rows": 9,
+    "unique_states": 4,
+    "sequence": "clean",
+    "from_archive": false,
+    "generated_at": "2026-08-07T09:00:00Z"
+  }
+}

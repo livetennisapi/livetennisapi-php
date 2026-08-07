@@ -1,0 +1,61 @@
+{
+  "id": 1402276,
+  "source_id": "2022-8888-201",
+  "tour": "atp",
+  "level": "G",
+  "tournament": "Wimbledon",
+  "surface": "grass",
+  "draw_size": 128,
+  "event_date": "2022-06-27",
+  "round": "F",
+  "best_of": 5,
+  "minutes": 161,
+  "winner": {
+    "name": "Novak Djokovic",
+    "hand": "R",
+    "country": "srb",
+    "rank": 3,
+    "seed": 1,
+    "player_id": 104925,
+    "height_cm": 188,
+    "age": 35.1,
+    "entry": null
+  },
+  "loser": {
+    "name": "Nick Kyrgios",
+    "hand": "R",
+    "country": "aus",
+    "rank": 40,
+    "seed": null,
+    "player_id": 106401,
+    "height_cm": 193,
+    "age": 27.2,
+    "entry": null
+  },
+  "score": "4-6 6-3 6-4 7-6(3)",
+  "outcome": "completed",
+  "stats": {
+    "winner": {
+      "aces": 15,
+      "double_faults": 2,
+      "serve_points": 122,
+      "first_in": 87,
+      "first_won": 65,
+      "second_won": 21,
+      "serve_games": 19,
+      "bp_saved": 5,
+      "bp_faced": 6
+    },
+    "loser": {
+      "aces": 30,
+      "double_faults": 7,
+      "serve_points": 132,
+      "first_in": 96,
+      "first_won": 74,
+      "second_won": 19,
+      "serve_games": 19,
+      "bp_saved": 3,
+      "bp_faced": 5
+    }
+  }
+}

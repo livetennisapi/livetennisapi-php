@@ -1,0 +1,81 @@
+{
+  "rally_match_id": 9120,
+  "source_id": "20230716-M-Wimbledon-F-Carlos_Alcaraz-Novak_Djokovic",
+  "match_id": null,
+  "date": "2023-07-16",
+  "tournament": "Wimbledon",
+  "round": "F",
+  "surface": "Grass",
+  "gender": "M",
+  "best_of": 5,
+  "players": [
+    {"name": "Carlos Alcaraz", "hand": "R"},
+    {"name": "Novak Djokovic", "hand": "R"}
+  ],
+  "points": 334,
+  "points_parsed": 330,
+  "rally": [
+    {
+      "point": 1,
+      "set": [0, 0],
+      "games": [0, 0],
+      "score": "0-0",
+      "game": 1,
+      "is_tiebreak": false,
+      "server": 2,
+      "point_winner": 2,
+      "raw": "a",
+      "parsed": true,
+      "serve_number": 1,
+      "serve_direction": "wide",
+      "rally_length": 1,
+      "outcome": "winner",
+      "error_location": null,
+      "ending_stroke": "serve",
+      "ending_wing": null,
+      "is_ace": true,
+      "is_double_fault": false,
+      "is_serve_and_volley": false,
+      "shots": [
+        {
+          "number": 1,
+          "code": "a",
+          "stroke": "serve",
+          "wing": null,
+          "direction": null,
+          "depth": null,
+          "position": null
+        }
+      ]
+    },
+    {
+      "point": 2,
+      "set": [0, 0],
+      "games": [0, 0],
+      "score": "0-15",
+      "game": 1,
+      "is_tiebreak": false,
+      "server": 2,
+      "point_winner": 1,
+      "raw": "6;f8b3f1n@",
+      "parsed": true,
+      "serve_number": 2,
+      "serve_direction": "down_the_t",
+      "rally_length": 4,
+      "outcome": "unforced_error",
+      "error_location": "net",
+      "ending_stroke": "groundstroke",
+      "ending_wing": "forehand",
+      "is_ace": false,
+      "is_double_fault": false,
+      "is_serve_and_volley": false,
+      "shots": [
+        {"number": 1, "code": "6", "stroke": "serve", "wing": null, "direction": null, "depth": null, "position": null},
+        {"number": 2, "code": "f", "stroke": "groundstroke", "wing": "forehand", "direction": "backhand_side", "depth": "deep", "position": "baseline"},
+        {"number": 3, "code": "b", "stroke": "groundstroke", "wing": "backhand", "direction": "middle", "depth": "mid", "position": "baseline"},
+        {"number": 4, "code": "f", "stroke": "groundstroke", "wing": "forehand", "direction": "forehand_side", "depth": null, "position": "baseline"}
+      ]
+    }
+  ],
+  "meta": {"limit": 50, "offset": 0, "count": 2, "total": 334, "has_more": true}
+}
