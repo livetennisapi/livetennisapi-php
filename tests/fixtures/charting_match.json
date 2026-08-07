@@ -1,0 +1,21 @@
+{
+  "charting_match_id": 9120,
+  "mcp_id": "20230716-M-Wimbledon-F-Carlos_Alcaraz-Novak_Djokovic",
+  "gender": "M",
+  "players": {
+    "p1": {"name": "Carlos Alcaraz", "hand": "R"},
+    "p2": {"name": "Novak Djokovic", "hand": "R"}
+  },
+  "families": {
+    "overview": [
+      {"player": 1, "set": "1", "aces": 1, "double_faults": 1, "winners": 6, "unforced": 8},
+      {"player": 1, "set": "2", "aces": 2, "double_faults": 0, "winners": 12, "unforced": 5},
+      {"player": 1, "set": "Total", "aces": 7, "double_faults": 3, "winners": 66, "unforced": 45},
+      {"player": 2, "set": "Total", "aces": 2, "double_faults": 3, "winners": 51, "unforced": 40}
+    ],
+    "serve_basics": [
+      {"player": 1, "set": "Total", "first_in": 102, "first_won": 74, "second_won": 34},
+      {"player": 2, "set": "Total", "first_in": 108, "first_won": 79, "second_won": 30}
+    ]
+  }
+}

@@ -4,8 +4,11 @@ declare(strict_types=1);
 
 namespace LiveTennisApi\Tests;
 
+use LiveTennisApi\Model\HistoryTapeRow;
+use LiveTennisApi\Model\ListMeta;
 use LiveTennisApi\Model\Page;
 use LiveTennisApi\Model\Player;
+use LiveTennisApi\Model\RankingRecord;
 use LiveTennisApi\Model\Score;
 use LiveTennisApi\Model\TennisMatch;
 use PHPUnit\Framework\TestCase;
@@ -74,5 +77,67 @@ final class ModelTest extends TestCase
         $player = Player::fromArray($payload);
         $this->assertSame($payload, $player->toArray());
         $this->assertSame($payload, $player->jsonSerialize());
+    }
+
+    public function testListMetaTotalNullableAndHasMore(): void
+    {
+        // total is null when it cannot be counted cheaply (status=completed)
+        $meta = ListMeta::fromArray(['limit' => 50, 'offset' => 0, 'count' => 50, 'total' => null, 'has_more' => true]);
+        $this->assertNull($meta->total);
+        $this->assertTrue($meta->has_more);
+
+        $counted = ListMeta::fromArray(['limit' => 50, 'offset' => 200, 'count' => 14, 'total' => 214, 'has_more' => false]);
+        $this->assertSame(214, $counted->total);
+        $this->assertFalse($counted->has_more);
+    }
+
+    public function testMatchNewFieldsDefaultToNull(): void
+    {
+        // A pre-1.1 payload without the new fields still decodes cleanly.
+        $match = TennisMatch::fromArray(['id' => 1, 'tournament' => 'X']);
+        $this->assertInstanceOf(TennisMatch::class, $match);
+        $this->assertNull($match->tour);
+        $this->assertNull($match->tournament_id);
+        $this->assertNull($match->round_code);
+        $this->assertNull($match->withdrew);
+        $this->assertNull($match->tape);
+    }
+
+    public function testReconstructedTapeRowIsNullTimestampAndNullModelFields(): void
+    {
+        // Reconstructed rows: null timestamp AND null model fields — nothing
+        // synthesised. The null timestamp is the reliable row-level marker.
+        $row = HistoryTapeRow::fromArray([
+            'sets' => [0, 0],
+            'games' => [[3], [2]],
+            'points' => ['30', '15'],
+            'server' => 1,
+            'is_tiebreak' => false,
+            'win_probability_p1' => null,
+            'danger' => null,
+            'timestamp' => null,
+            'point_winner' => 1,
+        ]);
+        $this->assertInstanceOf(HistoryTapeRow::class, $row);
+        $this->assertNull($row->timestamp);
+        $this->assertNull($row->win_probability_p1);
+        $this->assertSame(1, $row->point_winner);
+    }
+
+    public function testUtrRankingRecordHasRatingNotRank(): void
+    {
+        $record = RankingRecord::fromArray([
+            'player_id' => 3819,
+            'system' => 'utr',
+            'rank' => null,
+            'points' => null,
+            'previous_rank' => null,
+            'rating' => 16.21,
+            'effective_date' => '2026-08-03',
+        ]);
+        $this->assertInstanceOf(RankingRecord::class, $record);
+        $this->assertNull($record->rank, 'UTR is a rating, not a ranking');
+        $this->assertNull($record->previous_rank);
+        $this->assertSame(16.21, $record->rating);
     }
 }

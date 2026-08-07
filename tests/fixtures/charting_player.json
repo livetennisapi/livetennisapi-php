@@ -1,0 +1,32 @@
+{
+  "player": {"name": "Iga Swiatek", "gender": "women"},
+  "matches_charted": 178,
+  "coverage": "curated — Match Charting Project, concentrated on the majors",
+  "families": {
+    "serve_direction": {
+      "deuce_wide": 611,
+      "deuce_body": 402,
+      "deuce_t": 688,
+      "ad_wide": 590,
+      "ad_body": 371,
+      "ad_t": 640
+    },
+    "return_outcomes": {
+      "returnable": 2916,
+      "in_play": 2350,
+      "winners": 88
+    },
+    "net_points": {
+      "net_points": 402,
+      "net_points_won": 285,
+      "serve_and_volley": 6,
+      "serve_and_volley_won": 4
+    },
+    "key_points_serve": {
+      "break_points": 301,
+      "break_points_won": 174,
+      "game_points": 812,
+      "game_points_won": 601
+    }
+  }
+}

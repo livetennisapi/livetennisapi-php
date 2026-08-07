@@ -1,0 +1,16 @@
+{
+  "data": [
+    {
+      "period": "2026-07",
+      "status": "ready",
+      "match_count": 5104,
+      "row_count": 21873,
+      "kind": "rankings",
+      "files": [
+        {"format": "jsonl", "filename": "rankings-2026-07.jsonl.gz", "bytes": 1830441, "sha256": "9e8d7c6b5a4938271605f4e3d2c1b0a99e8d7c6b5a4938271605f4e3d2c1b0a9"}
+      ],
+      "built_at": "2026-08-01T03:20:02Z"
+    }
+  ],
+  "meta": {"count": 1, "year": "2026"}
+}

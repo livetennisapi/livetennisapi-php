@@ -1,0 +1,25 @@
+{
+  "data": [
+    {
+      "id": "atp-cincinnati-singles",
+      "name": "Cincinnati Open",
+      "tour": "atp",
+      "surface": "hard",
+      "indoor": false,
+      "city": "Cincinnati",
+      "country": "US",
+      "category": "masters_1000"
+    },
+    {
+      "id": "itf-w15-monastir-singles",
+      "name": "W15 Monastir",
+      "tour": "itf",
+      "surface": "hard",
+      "indoor": false,
+      "city": null,
+      "country": null,
+      "category": null
+    }
+  ],
+  "meta": {"limit": 50, "offset": 0, "count": 2, "total": 2, "has_more": false}
+}

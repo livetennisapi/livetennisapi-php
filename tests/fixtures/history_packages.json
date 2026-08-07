@@ -1,0 +1,26 @@
+{
+  "data": [
+    {
+      "period": "2026-07",
+      "status": "ready",
+      "match_count": 4211,
+      "row_count": 812440,
+      "files": [
+        {"format": "jsonl", "filename": "tapes-2026-07.jsonl.gz", "bytes": 48211930, "sha256": "d1f8c0a4e6b2593f7a80cf14e2ab99310cf0d5a4b6e8c7d90112a3b4c5d6e7f8"},
+        {"format": "csv", "filename": "tapes-2026-07.csv.gz", "bytes": 39117204, "sha256": "a2b3c4d5e6f708192a3b4c5d6e7f8091a2b3c4d5e6f708192a3b4c5d6e7f8091"}
+      ],
+      "built_at": "2026-08-01T03:12:44Z"
+    },
+    {
+      "period": "2026-06",
+      "status": "ready",
+      "match_count": 3987,
+      "row_count": 764101,
+      "files": [
+        {"format": "jsonl", "filename": "tapes-2026-06.jsonl.gz", "bytes": 45102277, "sha256": "0f1e2d3c4b5a69788796a5b4c3d2e1f00f1e2d3c4b5a69788796a5b4c3d2e1f0"}
+      ],
+      "built_at": "2026-07-01T03:09:18Z"
+    }
+  ],
+  "meta": {"count": 2}
+}

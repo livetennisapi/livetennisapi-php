@@ -1,0 +1,35 @@
+{
+  "data": [
+    {
+      "side": 1,
+      "bid": 0.71,
+      "ask": 0.74,
+      "mid": 0.725,
+      "spread": 0.03,
+      "price_source": "prediction_market",
+      "synthetic": false,
+      "timestamp": "2026-08-07T14:30:41Z"
+    },
+    {
+      "side": 2,
+      "bid": 0.26,
+      "ask": 0.29,
+      "mid": 0.275,
+      "spread": 0.03,
+      "price_source": "prediction_market",
+      "synthetic": false,
+      "timestamp": "2026-08-07T14:30:41Z"
+    },
+    {
+      "side": 1,
+      "bid": 0.68,
+      "ask": 0.72,
+      "mid": 0.7,
+      "spread": 0.04,
+      "price_source": "prediction_market",
+      "synthetic": true,
+      "timestamp": "2026-08-07T14:28:02Z"
+    }
+  ],
+  "meta": {"match_id": 22313, "count": 3, "has_more": true, "limit": 3, "minutes": 60}
+}

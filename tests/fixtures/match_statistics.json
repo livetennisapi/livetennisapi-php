@@ -1,0 +1,100 @@
+{
+  "match_id": 22313,
+  "coverage": "live",
+  "as_of": "2026-08-07T14:31:02Z",
+  "age_seconds": 4,
+  "games_counted": 17,
+  "tiebreak_games_excluded": 1,
+  "inconsistent_games_excluded": 0,
+  "sets_covered": [1, 2],
+  "freshness": {
+    "measured_divergence": null,
+    "derived": {
+      "coverage": "live",
+      "as_of": "2026-08-07T14:31:02Z",
+      "age_seconds": 4,
+      "describes": {"games_p1": [6, 3], "games_p2": [4, 4], "total_games": 17}
+    },
+    "measured": {
+      "coverage": "live",
+      "as_of": "2026-08-07T14:30:41Z",
+      "age_seconds": 25,
+      "describes": {"games_p1": [6, 3], "games_p2": [4, 4], "total_games": 17}
+    }
+  },
+  "players": {
+    "p1": {
+      "measured": {
+        "aces": 6,
+        "double_faults": 1,
+        "points_won": 58,
+        "service_points_won": 38,
+        "return_points_won": 20,
+        "break_points_won": 2,
+        "service_games_won": 8,
+        "first_serves_in": 34,
+        "first_serves_in_of": 52,
+        "first_serves_in_pct": 65,
+        "first_serve_points_won": 27,
+        "first_serve_points_won_of": 34,
+        "first_serve_points_won_pct": 79,
+        "break_points_saved": 3,
+        "break_points_saved_of": 4,
+        "break_points_saved_pct": 75,
+        "max_points_in_row": 7,
+        "max_games_in_row": 3
+      },
+      "service_games_played": 9,
+      "service_games_won": 8,
+      "hold_pct": 89,
+      "return_games_played": 8,
+      "return_games_won": 2,
+      "break_pct": 25,
+      "break_points_faced": 4,
+      "break_points_saved": 3,
+      "break_points_saved_pct": 75,
+      "break_points_played": 5,
+      "break_points_converted": 2,
+      "break_points_converted_pct": 40,
+      "service_points_played": 52,
+      "service_points_won": 38,
+      "service_points_won_pct": 73,
+      "return_points_played": 49,
+      "return_points_won": 20,
+      "return_points_won_pct": 41,
+      "points_played": 101,
+      "points_won": 58
+    },
+    "p2": {
+      "measured": {
+        "aces": 3,
+        "double_faults": 4,
+        "points_won": 43,
+        "service_points_won": 29,
+        "return_points_won": 14,
+        "break_points_won": 1,
+        "service_games_won": 6
+      },
+      "service_games_played": 8,
+      "service_games_won": 6,
+      "hold_pct": 75,
+      "return_games_played": 9,
+      "return_games_won": 1,
+      "break_pct": 11,
+      "break_points_faced": 5,
+      "break_points_saved": 3,
+      "break_points_saved_pct": 60,
+      "break_points_played": 4,
+      "break_points_converted": 1,
+      "break_points_converted_pct": 25,
+      "service_points_played": 49,
+      "service_points_won": 29,
+      "service_points_won_pct": 59,
+      "return_points_played": 52,
+      "return_points_won": 14,
+      "return_points_won_pct": 27,
+      "points_played": 101,
+      "points_won": 43
+    }
+  }
+}

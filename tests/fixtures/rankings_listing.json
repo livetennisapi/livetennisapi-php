@@ -1,0 +1,58 @@
+{
+  "data": [
+    {
+      "player_id": 3819,
+      "player_name": "Jannik Sinner",
+      "system": "atp",
+      "tour": "atp",
+      "rank": 1,
+      "points": 11480,
+      "previous_rank": 1,
+      "rank_movement": null,
+      "rating": null,
+      "effective_date": "2026-08-03",
+      "observed_at": "2026-08-03T09:00:12Z"
+    },
+    {
+      "player_id": 4210,
+      "player_name": "Carlos Alcaraz",
+      "system": "atp",
+      "tour": "atp",
+      "rank": 2,
+      "points": 9590,
+      "previous_rank": 3,
+      "rank_movement": null,
+      "rating": null,
+      "effective_date": "2026-08-03",
+      "observed_at": "2026-08-03T09:00:12Z"
+    },
+    {
+      "player_id": null,
+      "player_name": "Botic van de Zandschulp",
+      "system": "atp",
+      "tour": "atp",
+      "rank": 87,
+      "points": 673,
+      "previous_rank": null,
+      "rank_movement": null,
+      "rating": null,
+      "effective_date": "2026-08-03",
+      "observed_at": "2026-08-03T09:00:12Z"
+    }
+  ],
+  "meta": {
+    "limit": 50,
+    "offset": 0,
+    "count": 3,
+    "total": 2214,
+    "has_more": true,
+    "coverage": {
+      "as_of": "2026-08-07",
+      "players_requested": 0,
+      "players_resolved": 0,
+      "systems_requested": ["atp"],
+      "systems_resolved": ["atp"],
+      "oldest_available": {"atp": "2023-01-02"}
+    }
+  }
+}

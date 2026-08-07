@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace LiveTennisApi\Tests;
 
+use LiveTennisApi\Exception\AbuseThrottled;
 use LiveTennisApi\Exception\ApiConnectionError;
 use LiveTennisApi\Exception\ApiTimeoutError;
 use LiveTennisApi\Exception\BadRequest;
@@ -245,5 +246,146 @@ final class ClientTest extends TestCase
 
         $this->expectException(ApiConnectionError::class);
         $this->client($mock, ['max_retries' => 0])->health();
+    }
+
+    // -- 1.1.0: list filters ---------------------------------------------------
+
+    public function testJuniorsTourFilterIsPassedThrough(): void
+    {
+        $mock = (new MockClient())->queueJson(['data' => [], 'meta' => []]);
+        $this->client($mock)->listMatches('upcoming', 'juniors');
+
+        $this->assertStringContainsString('tour=juniors', (string) $mock->lastRequest()?->getUri());
+    }
+
+    public function testPlayerFilterRepeatsTheKey(): void
+    {
+        $mock = (new MockClient())->queueJson(['data' => [], 'meta' => []]);
+        $this->client($mock)->listMatches('completed', null, 50, 0, [
+            'player' => [3819, 4210],
+            'country' => 'ned',
+            'from' => '2026-08-01',
+            'to' => '2026-08-07',
+        ]);
+
+        $uri = (string) $mock->lastRequest()?->getUri();
+        // explode form — player=1&player=2, never player[0]=1
+        $this->assertStringContainsString('player=3819&player=4210', $uri);
+        $this->assertStringNotContainsString('player%5B', $uri);
+        $this->assertStringContainsString('country=ned', $uri);
+        $this->assertStringContainsString('from=2026-08-01', $uri);
+        $this->assertStringContainsString('to=2026-08-07', $uri);
+    }
+
+    public function testSinglePlayerFilterNeedsNoArray(): void
+    {
+        $mock = (new MockClient())->queueJson(['data' => [], 'meta' => []]);
+        $this->client($mock)->listCompletedMatches(50, 0, ['player' => 3819]);
+
+        $this->assertStringContainsString('player=3819', (string) $mock->lastRequest()?->getUri());
+    }
+
+    public function testMoreThanFiftyPlayerIdsThrowBeforeAnyRequest(): void
+    {
+        $mock = new MockClient();
+
+        try {
+            $this->client($mock)->listMatches('completed', null, 50, 0, ['player' => range(1, 51)]);
+            $this->fail('expected InvalidArgumentException');
+        } catch (\InvalidArgumentException $e) {
+            $this->assertStringContainsString('50', $e->getMessage());
+        }
+
+        $this->assertCount(0, $mock->requests, 'the cap must be enforced client-side');
+    }
+
+    public function testUnknownFilterKeyThrows(): void
+    {
+        // Unknown KEYS would be dropped silently by the gateway (it only
+        // 400s on unknown values), so the client refuses them.
+        $this->expectException(\InvalidArgumentException::class);
+        $this->client(new MockClient())->listMatches('live', null, 50, 0, ['countryy' => 'ned']);
+    }
+
+    // -- 1.1.0: 429 taxonomy ---------------------------------------------------
+
+    public function testDaily429SurfacesResetsAt(): void
+    {
+        $mock = (new MockClient())->queueJson([
+            'error' => 'rate_limited',
+            'scope' => 'day',
+            'limit_per_day' => 100,
+            'resets_at' => '2026-08-07T22:00:00+00:00',
+        ], 429, ['Retry-After' => '26400']);
+
+        try {
+            $this->client($mock, ['max_retries' => 0])->listMatches('live');
+            $this->fail('expected RateLimited');
+        } catch (RateLimited $e) {
+            $this->assertTrue($e->isDaily());
+            $this->assertSame('day', $e->getScope());
+            $this->assertSame(100, $e->getLimitPerDay());
+            // an absolute ISO instant — never a fixed UTC hour to assume
+            $this->assertSame('2026-08-07T22:00:00+00:00', $e->getResetsAt());
+        }
+    }
+
+    public function testMinute429HasNoDailyFields(): void
+    {
+        $mock = (new MockClient())->queueJson(['error' => 'rate_limited'], 429, ['Retry-After' => '7']);
+
+        try {
+            $this->client($mock, ['max_retries' => 0])->listMatches('live');
+            $this->fail('expected RateLimited');
+        } catch (RateLimited $e) {
+            $this->assertFalse($e->isDaily());
+            $this->assertNull($e->getResetsAt());
+            $this->assertSame(7.0, $e->getRetryAfter());
+        }
+    }
+
+    public function testAbuseThrottledCarriesRetryAtEpoch(): void
+    {
+        $mock = (new MockClient())->queueJson([
+            'error' => 'abuse_throttled',
+            'retry_at_epoch' => 1786572000,
+        ], 429);
+
+        try {
+            $this->client($mock, ['max_retries' => 0])->listMatches('live');
+            $this->fail('expected AbuseThrottled');
+        } catch (AbuseThrottled $e) {
+            $this->assertSame('abuse_throttled', $e->errorCode());
+            $this->assertSame(1786572000, $e->getRetryAtEpoch());
+            $this->assertInstanceOf(RateLimited::class, $e, 'catch-alls on RateLimited still catch it');
+        }
+    }
+
+    public function testAbuseThrottledIsNeverRetried(): void
+    {
+        // Only one response queued: a retry would exhaust the queue and fail
+        // differently. The block punishes retry loops; retrying it is wrong.
+        $mock = (new MockClient())->queueJson([
+            'error' => 'abuse_throttled',
+            'retry_at_epoch' => 1786572000,
+        ], 429);
+        $client = $this->client($mock, ['max_retries' => 3]);
+
+        $this->expectException(AbuseThrottled::class);
+        try {
+            $client->listMatches('live');
+        } finally {
+            $this->assertCount(1, $mock->requests, 'abuse_throttled must not be retried');
+        }
+    }
+
+    public function testOrdinary429IsStillRetried(): void
+    {
+        $mock = (new MockClient())
+            ->queueJson(['error' => 'rate_limited'], 429, ['Retry-After' => '0'])
+            ->queueJson(['data' => [], 'meta' => []]);
+
+        $this->client($mock, ['max_retries' => 2])->listMatches('live');
+        $this->assertCount(2, $mock->requests);
     }
 }

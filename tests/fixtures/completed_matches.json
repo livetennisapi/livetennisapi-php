@@ -1,0 +1,63 @@
+{
+  "data": [
+    {
+      "id": 21955,
+      "tournament": "Cincinnati Open",
+      "tour": "atp",
+      "tournament_id": "atp-cincinnati-singles",
+      "surface": "hard",
+      "indoor": false,
+      "format": "BO3",
+      "round": "2nd Round",
+      "round_code": "R32",
+      "status": "completed",
+      "event_status": "Retired",
+      "is_doubles": false,
+      "scheduled_time": "2026-08-04T15:00:00Z",
+      "players": {
+        "p1": {"id": 4501, "name": "Felix Auger-Aliassime", "tour": "atp", "country": "can", "ranking": 27},
+        "p2": {"id": 6088, "name": "Jaume Munar", "tour": "atp", "country": "esp", "ranking": 55}
+      },
+      "score": {
+        "sets": [1, 0],
+        "games": [[6, 2], [3, 1]],
+        "points": ["0", "0"],
+        "server": null,
+        "is_tiebreak": false,
+        "timestamp": "2026-08-04T16:12:40Z"
+      },
+      "winner": 1,
+      "withdrew": 2
+    },
+    {
+      "id": 21941,
+      "tournament": "Prague Open",
+      "tour": "wta",
+      "tournament_id": "wta-prague-singles",
+      "surface": "clay",
+      "indoor": false,
+      "format": "BO3",
+      "round": "Final",
+      "round_code": "F",
+      "status": "completed",
+      "event_status": null,
+      "is_doubles": false,
+      "scheduled_time": "2026-08-03T12:00:00Z",
+      "players": {
+        "p1": {"id": 7132, "name": "Linda Noskova", "tour": "wta", "country": "cze", "ranking": 18},
+        "p2": {"id": 7414, "name": "Marie Bouzkova", "tour": "wta", "country": "cze", "ranking": 41}
+      },
+      "score": {
+        "sets": [2, 1],
+        "games": [[6, 4, 6], [3, 6, 2]],
+        "points": ["0", "0"],
+        "server": null,
+        "is_tiebreak": false,
+        "timestamp": "2026-08-03T14:55:21Z"
+      },
+      "winner": 1,
+      "withdrew": null
+    }
+  ],
+  "meta": {"limit": 50, "offset": 0, "count": 2, "total": null, "has_more": true}
+}
