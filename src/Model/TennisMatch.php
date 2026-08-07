@@ -22,12 +22,51 @@ final class TennisMatch extends Model
 {
     public ?int $id = null;
     public ?string $tournament = null;
+
+    /**
+     * The tour, in the SAME vocabulary the `tour` query filter accepts
+     * (`atp|wta|challenger|itf|juniors`) — a match selected by `?tour=X`
+     * always carries that value here. Null when the feed never stated a
+     * tour or the event type has no public tour name (exhibitions, team and
+     * mixed events). Safe to group and filter on; never parse the
+     * tournament name for this. (Unlike `Player.tour`, which is granular
+     * and opaque.)
+     */
+    public ?string $tour = null;
+
+    /**
+     * Stable tournament identity — one id per tournament × event type,
+     * stable across seasons. Joins `getTournament()` / `/tournaments/{id}`.
+     * Null on matches ingested before the catalogue covered their
+     * tournament.
+     */
+    public ?string $tournament_id = null;
+
     public ?string $surface = null;
     public ?bool $indoor = null;
     public ?string $format = null;
     public ?string $round = null;
+
+    /**
+     * The round in the archive's controlled vocabulary
+     * (F|SF|QF|R16|R32|R64|R128|RR|BR|Q|Q1|Q2|Q3|Q4|ER), normalized from
+     * the free-text `round` label ('Q' = qualifying round the feed does not
+     * number). Null when the label is unrecognised — never guessed.
+     */
+    public ?string $round_code = null;
+
     public ?string $status = null;
+
+    /**
+     * How the match ended (or paused) when it did not run its course:
+     * `Retired`, `Cancelled`, `Walk Over`, `Postponed`, or `Interrupted`
+     * (an in-play suspension — the match is paused, not over). NULL means
+     * the match completed normally OR the outcome was never resolved — the
+     * feed does not distinguish those. The value is cleared if a suspended
+     * match resumes.
+     */
     public ?string $event_status = null;
+
     public ?bool $is_doubles = null;
 
     /** ISO 8601 UTC string exactly as received. */
@@ -45,6 +84,24 @@ final class TennisMatch extends Model
 
     /** Completed matches only — derived from final sets. 1, 2, or null. */
     public ?int $winner = null;
+
+    /**
+     * Completed matches only — which player retired or conceded the
+     * walkover (1|2). Present only when `event_status` is Retired/Walk Over
+     * and the winner is derivable; the withdrawer is the loser by the rules
+     * of the sport.
+     */
+    public ?int $withdrew = null;
+
+    /**
+     * History list rows only (`listCompletedMatches()`): what point-by-point
+     * data we hold for this match — `{coverage, rows, reconstructed_rows}`.
+     * `rows` counts rows we OBSERVED, not the length of the tape you will
+     * be served; use the per-match tape's `meta['rows']` for that.
+     *
+     * @var array<string, mixed>|null
+     */
+    public ?array $tape = null;
 
     /** PRO+ only (absent below). */
     public ?Market $market = null;
