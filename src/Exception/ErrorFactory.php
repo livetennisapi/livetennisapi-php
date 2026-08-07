@@ -22,8 +22,19 @@ final class ErrorFactory
      */
     private const TIER_REQUIREMENTS = [
         ['/analysis', 'ULTRA'],
+        ['/statistics', 'ULTRA'],
+        ['/rally', 'ULTRA'],
+        ['/charting', 'ULTRA'],
+        ['/ws-token', 'ULTRA'],
+        ['/webhooks', 'ULTRA'],
         ['/events', 'PRO'],
         ['/markets', 'PRO'],
+        ['/prices', 'PRO'],
+        // Listing mode (no ?player=) is PRO; per-player as-of mode is ULTRA.
+        // Path-based inference can only state the floor.
+        ['/rankings', 'PRO'],
+        ['/history/packages', 'PRO'],
+        ['/h2h', 'BASIC'],
         ['/history', 'BASIC'],
     ];
 
@@ -92,6 +103,15 @@ final class ErrorFactory
                 self::requiredTierFor($path),
             ),
             $status === 404 => new NotFound($message, $status, $body, $headers, $requestUrl),
+            $status === 409 => new Conflict($message, $status, $body, $headers, $requestUrl),
+            $status === 429 && self::isAbuseThrottled($body) => new AbuseThrottled(
+                $message,
+                $status,
+                $body,
+                $headers,
+                $requestUrl,
+                self::retryAfterSeconds($headers),
+            ),
             $status === 429 => new RateLimited(
                 $message,
                 $status,
@@ -107,11 +127,25 @@ final class ErrorFactory
     }
 
     /**
+     * Whether this 429 body is the abuse block (`abuse_throttled`) — a
+     * 24-hour ban on chronically over-cap clients, which retrying cannot
+     * clear and must not be retried.
+     *
+     * @param mixed $body
+     */
+    public static function isAbuseThrottled(mixed $body): bool
+    {
+        return is_array($body) && ($body['error'] ?? null) === 'abuse_throttled';
+    }
+
+    /**
      * Whether retrying can plausibly fix this status.
      *
      * 429 and 5xx are transient. Every other 4xx is a client-side mistake —
      * a bad key, an unentitled tier, a missing id — and retrying it just burns
      * rate-limit budget against a request that cannot start working.
+     * (The one non-transient 429, `abuse_throttled`, is excluded by body in
+     * the request loop via {@see isAbuseThrottled()}.)
      */
     public static function shouldRetry(int $status): bool
     {
