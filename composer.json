@@ -1,6 +1,6 @@
 {
     "name": "livetennisapi/livetennisapi",
-    "description": "Official PHP client for the Live Tennis API — real-time tennis scores, players, fixtures, match-winner market prices and model win-probability for ATP, WTA, Challenger and ITF.",
+    "description": "Official PHP client for the Live Tennis API — real-time tennis scores, players, fixtures, head-to-heads, a 1968-onward results archive, point-by-point tapes, rally and charting data, rankings, match-winner market prices and model win-probability for ATP, WTA, Challenger, ITF and juniors.",
     "type": "library",
     "license": "MIT",
     "homepage": "https://livetennisapi.com",
