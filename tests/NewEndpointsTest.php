@@ -448,7 +448,7 @@ final class NewEndpointsTest extends TestCase
 
         $this->assertInstanceOf(Webhook::class, $hook);
         $this->assertSame(3, $hook->id);
-        $this->assertSame('whsec_5f2c1a9e8b7d6c5f4e3d2c1b0a998877', $hook->secret, 'shown exactly once — store it');
+        $this->assertSame('whsec_test_fixture_not_a_real_secret', $hook->secret, 'shown exactly once — store it');
 
         $request = $mock->lastRequest();
         $this->assertSame('POST', $request?->getMethod());

@@ -7,6 +7,6 @@
   "last_delivery_at": null,
   "consecutive_failures": 0,
   "last_error": null,
-  "secret": "whsec_5f2c1a9e8b7d6c5f4e3d2c1b0a998877",
+  "secret": "whsec_test_fixture_not_a_real_secret",
   "secret_note": "Shown once. Store it — the list endpoint never returns it."
 }
