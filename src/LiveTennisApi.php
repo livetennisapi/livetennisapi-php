@@ -62,7 +62,7 @@ use Psr\Http\Message\ResponseInterface;
  */
 final class LiveTennisApi
 {
-    public const VERSION = '1.1.0';
+    public const VERSION = '1.1.1';
     public const DEFAULT_BASE_URL = 'https://api.livetennisapi.com/api/public/v1';
     public const DEFAULT_TIMEOUT = 30.0;
     public const DEFAULT_MAX_RETRIES = 2;
@@ -634,14 +634,18 @@ final class LiveTennisApi
     }
 
     /**
-     * List pre-built monthly bulk packages, newest period first. **PRO**
-     * (or a package subscription).
+     * List pre-built bulk packages, newest period first. **PRO** (or a
+     * package subscription).
      *
-     * `$kind`: `tape` (default) = point-by-point match tapes; `rankings` =
-     * as-of ranking records (**ULTRA**). `$year` (YYYY): every published
-     * month of that year — needs History Business, a 1-year package, or
-     * core ULTRA. Coverage is not a contiguous run of months; treat this
-     * listing as the authoritative set of months that exist.
+     * `$kind`: `tape` (default) = monthly point-by-point match tapes;
+     * `rankings` = as-of ranking records (**ULTRA**); `rally` = the charted
+     * rally corpus (shot-by-shot) as YEARLY exports (**ULTRA**); `archive` =
+     * the results archive (1968–2022) as YEARLY exports, same entitlement
+     * as the tape packages. The yearly kinds' `period` is the bare year
+     * `YYYY` — one file per year. `$year` (YYYY): every published month of
+     * that year — needs History Business, a 1-year package, or core ULTRA.
+     * Coverage is not a contiguous run of months; treat this listing as the
+     * authoritative set of periods that exist.
      *
      * @return Page<HistoryPackage>
      */
@@ -657,11 +661,13 @@ final class LiveTennisApi
     }
 
     /**
-     * One monthly package's JSON manifest (period YYYY-MM). **PRO** (or a
-     * package subscription); `$kind = 'rankings'` requires ULTRA. The
-     * manifest lists the downloadable files with sizes and sha256 — the
-     * files themselves stream from the same URL with `?format=jsonl|csv`,
-     * which this client does not buffer for you.
+     * One package's JSON manifest — period YYYY-MM, or the bare year YYYY
+     * for the yearly `rally`/`archive` kinds. **PRO** (or a package
+     * subscription); `$kind = 'rankings'` and `$kind = 'rally'` require
+     * ULTRA, while `$kind = 'archive'` carries the same entitlement as the
+     * tape packages. The manifest lists the downloadable files with sizes
+     * and sha256 — the files themselves stream from the same URL with
+     * `?format=jsonl|csv`, which this client does not buffer for you.
      */
     public function getHistoryPackage(string $period, ?string $kind = null): ?HistoryPackage
     {

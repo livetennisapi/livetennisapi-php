@@ -318,6 +318,47 @@ final class NewEndpointsTest extends TestCase
         $this->assertStringContainsString('/history/packages/2026-07?kind=rankings', (string) $mock->lastRequest()?->getUri());
     }
 
+    public function testYearlyPackageKindsUseBareYearPeriods(): void
+    {
+        // kind=archive: yearly results-archive exports, bare-year periods.
+        $mock = (new MockClient())->queueJson([
+            'data' => [[
+                'period' => '2019',
+                'status' => 'ready',
+                'kind' => 'archive',
+                'files' => [[
+                    'format' => 'jsonl',
+                    'filename' => 'archive-2019.jsonl.gz',
+                    'bytes' => 4210833,
+                    'sha256' => str_repeat('ab', 32),
+                    'compression' => 'gzip',
+                ]],
+                'built_at' => '2026-08-01T03:20:02Z',
+            ]],
+            'meta' => ['count' => 1],
+        ]);
+        $page = $this->client($mock)->listHistoryPackages('archive');
+
+        $pkg = $page[0];
+        $this->assertInstanceOf(HistoryPackage::class, $pkg);
+        $this->assertSame('archive', $pkg->kind);
+        $this->assertSame('2019', $pkg->period, 'yearly kinds carry a bare-year period');
+        $this->assertSame('gzip', $pkg->files[0]['compression']);
+        $this->assertStringContainsString('kind=archive', (string) $mock->lastRequest()?->getUri());
+
+        // kind=rally: the manifest is fetched by bare year, not YYYY-MM.
+        $mock = (new MockClient())->queueJson([
+            'period' => '2023',
+            'status' => 'ready',
+            'kind' => 'rally',
+        ]);
+        $pkg = $this->client($mock)->getHistoryPackage('2023', 'rally');
+
+        $this->assertInstanceOf(HistoryPackage::class, $pkg);
+        $this->assertSame('rally', $pkg->kind);
+        $this->assertStringContainsString('/history/packages/2023?kind=rally', (string) $mock->lastRequest()?->getUri());
+    }
+
     public function testHistoryTapeCleanSequenceDecodes(): void
     {
         $mock = (new MockClient())->queueJson($this->fixture('history_tape_clean'));
