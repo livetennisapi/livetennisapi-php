@@ -1,13 +1,24 @@
-# Live Tennis API — PHP client
+<div align="center">
 
-Official PHP client for the [Live Tennis API](https://livetennisapi.com): real-time
-tennis scores, players, fixtures, head-to-heads, a 1968→now results archive,
-point-by-point tapes, shot-by-shot rally data, match-winner market prices and model
-win-probability for **ATP, WTA, Challenger, ITF and juniors**.
+<img src="https://raw.githubusercontent.com/livetennisapi/.github/main/profile/banner.jpg" alt="Live Tennis API" width="640">
+
+# livetennisapi-php
+
+**Official PHP client for the [Live Tennis API](https://livetennisapi.com).**
+
+Real-time tennis scores, players, fixtures, head-to-heads, a 1968→now results
+archive, point-by-point tapes, shot-by-shot rally data, match-winner market
+prices and model win-probability — for ATP, WTA, Challenger, ITF and juniors.
 
 [![ci](https://github.com/livetennisapi/livetennisapi-php/actions/workflows/ci.yml/badge.svg)](https://github.com/livetennisapi/livetennisapi-php/actions/workflows/ci.yml)
 [![Packagist](https://img.shields.io/packagist/v/livetennisapi/livetennisapi)](https://packagist.org/packages/livetennisapi/livetennisapi)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+
+[**Documentation**](https://docs.livetennisapi.com) · [**Get a free API key**](https://livetennisapi.com/subscribe/free)
+
+</div>
+
+---
 
 Modern PHP 8.1+, PSR-4, PSR-12. Transport is **PSR-18** — bring any HTTP client
 (Guzzle, Symfony HttpClient, …) and the library auto-discovers it. Method names,
@@ -91,8 +102,11 @@ History grant works even on a free core key.
 ² Without `$players` (PRO): the full published table in rank order for exactly
 one system. With `$players` ids (ULTRA): per-player point-in-time records —
 the newest record effective on or before `$asOf`, never one dated after it.
-³ `kind: 'rankings'` and the `?year=` archive listing need ULTRA (or the
-matching History package/plan).
+³ `$kind` is `tape` (default) | `rankings` | `rally` | `archive`.
+`rankings` and `rally` (the yearly charted-rally exports) need ULTRA;
+`archive` (yearly 1968–2022 results exports) has the same entitlement as the
+tape packages. The yearly kinds use a bare-year `YYYY` period. The `?year=`
+archive listing needs ULTRA (or the matching History package/plan).
 ⁴ Direct keys only (RapidAPI keys get 403 `direct_key_required`); max 3
 webhooks per key (a 409 `Conflict`, `webhook_limit`). The signing `secret`
 is returned exactly once, on the create response — store it.

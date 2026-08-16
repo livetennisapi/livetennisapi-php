@@ -5,6 +5,30 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.1] — 2026-08-16
+
+### Fixed
+
+- History packages: documented all four `kind` values — `tape` (default),
+  `rankings` (ULTRA), `rally` (the charted rally corpus as yearly exports,
+  ULTRA) and `archive` (the 1968–2022 results archive as yearly exports,
+  same entitlement as the tape packages) — across the `listHistoryPackages()`
+  / `getHistoryPackage()` docblocks, the `HistoryPackage` model and the
+  README. The yearly kinds use a bare-year `YYYY` period, and their files
+  carry a `compression: gzip` entry.
+
+### Added
+
+- Tests for the yearly `rally`/`archive` package kinds: bare-year periods,
+  `kind` query pass-through and the gzip `compression` file entry.
+
+### Changed
+
+- README rebuilt with the fleet-standard centered header (org banner, badge
+  row, links block), matching the JS/Python/MCP clients.
+- Webhook test fixture secret made self-evidently fake (GitGuardian
+  false-positive hygiene).
+
 ## [1.1.0] — 2026-08-07
 
 Full parity with the public API surface (33 documented endpoints).
