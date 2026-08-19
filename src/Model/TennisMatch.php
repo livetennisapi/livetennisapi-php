@@ -67,6 +67,15 @@ final class TennisMatch extends Model
      */
     public ?string $event_status = null;
 
+    /**
+     * The instant the current `event_status` was recorded, as an ISO 8601
+     * UTC string (added 2026-08-19). Bumps only when the value changes — a
+     * re-read of the same status never moves it — and a clear back to NULL
+     * bumps it too. NULL while the status has never changed since the field
+     * was introduced: never backfilled, never guessed.
+     */
+    public ?string $event_status_updated_at = null;
+
     public ?bool $is_doubles = null;
 
     /** ISO 8601 UTC string exactly as received. */

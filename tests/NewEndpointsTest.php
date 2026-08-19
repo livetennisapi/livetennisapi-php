@@ -401,11 +401,15 @@ final class NewEndpointsTest extends TestCase
         $this->assertSame('atp-cincinnati-singles', $retired->tournament_id);
         $this->assertSame('R32', $retired->round_code);
         $this->assertSame('Retired', $retired->event_status);
+        // The instant the current event_status was recorded (added 2026-08-19).
+        $this->assertSame('2026-08-19T09:15:00Z', $retired->event_status_updated_at);
         $this->assertSame(1, $retired->winner);
         $this->assertSame(2, $retired->withdrew, 'the withdrawer is the loser');
 
         $normal = $page[1];
         $this->assertNull($normal->event_status);
+        // Never backfilled: null (or absent) stays null.
+        $this->assertNull($normal->event_status_updated_at);
         $this->assertNull($normal->withdrew);
 
         // total is null for status=completed; has_more is the signal
