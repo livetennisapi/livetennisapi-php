@@ -12,6 +12,7 @@
       "round_code": "R32",
       "status": "completed",
       "event_status": "Retired",
+      "event_status_updated_at": "2026-08-19T09:15:00Z",
       "is_doubles": false,
       "scheduled_time": "2026-08-04T15:00:00Z",
       "players": {
@@ -41,6 +42,7 @@
       "round_code": "F",
       "status": "completed",
       "event_status": null,
+      "event_status_updated_at": null,
       "is_doubles": false,
       "scheduled_time": "2026-08-03T12:00:00Z",
       "players": {
