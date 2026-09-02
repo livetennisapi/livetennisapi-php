@@ -16,7 +16,8 @@ namespace LiveTennisApi\Model;
  *
  * `market` is present from PRO, `analysis` from ULTRA — both are ABSENT (not
  * null) below those tiers, so treat `null` as "not entitled / not available"
- * rather than "no market exists".
+ * rather than "no market exists". `has_market` / `has_analysis` answer the
+ * existence question on every tier.
  */
 final class TennisMatch extends Model
 {
@@ -101,6 +102,22 @@ final class TennisMatch extends Model
      * of the sport.
      */
     public ?int $withdrew = null;
+
+    /**
+     * Whether a model thesis or profile exists for this match — on every
+     * `/matches` row and the detail, every tier (since 2026-09-02). Filter
+     * the slate on this before calling `/matches/{id}/analysis`, which
+     * answers `404 no_analysis` about the same fact. NULL only when talking
+     * to an older server that does not send it.
+     */
+    public ?bool $has_analysis = null;
+
+    /**
+     * Whether a match-winner market is mapped to this match (every tier,
+     * since 2026-09-02). Same role for `/markets/{id}/prices`
+     * (`404 no_market`). NULL only against an older server.
+     */
+    public ?bool $has_market = null;
 
     /**
      * History list rows only (`listCompletedMatches()`): what point-by-point

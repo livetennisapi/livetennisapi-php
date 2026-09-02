@@ -101,6 +101,10 @@ final class ModelTest extends TestCase
         $this->assertNull($match->round_code);
         $this->assertNull($match->withdrew);
         $this->assertNull($match->tape);
+        // has_analysis / has_market (2026-09-02): an older server omits them,
+        // and absence must stay null — never become false.
+        $this->assertNull($match->has_analysis);
+        $this->assertNull($match->has_market);
     }
 
     public function testReconstructedTapeRowIsNullTimestampAndNullModelFields(): void

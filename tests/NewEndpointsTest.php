@@ -405,12 +405,19 @@ final class NewEndpointsTest extends TestCase
         $this->assertSame('2026-08-19T09:15:00Z', $retired->event_status_updated_at);
         $this->assertSame(1, $retired->winner);
         $this->assertSame(2, $retired->withdrew, 'the withdrawer is the loser');
+        // has_analysis / has_market (every tier, added 2026-09-02): the same
+        // fact the per-match analysis and prices endpoints 404 about.
+        $this->assertTrue($retired->has_analysis);
+        $this->assertTrue($retired->has_market);
 
         $normal = $page[1];
         $this->assertNull($normal->event_status);
         // Never backfilled: null (or absent) stays null.
         $this->assertNull($normal->event_status_updated_at);
         $this->assertNull($normal->withdrew);
+        // Present-false is a real answer: nothing held — skip the 404s.
+        $this->assertFalse($normal->has_analysis);
+        $this->assertFalse($normal->has_market);
 
         // total is null for status=completed; has_more is the signal
         $this->assertNull($page->meta?->total);
