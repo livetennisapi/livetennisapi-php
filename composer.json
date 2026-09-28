@@ -6,7 +6,7 @@
     "homepage": "https://livetennisapi.com",
     "keywords": ["tennis", "tennis-api", "live-scores", "livescore", "sports", "sports-api", "atp", "wta", "itf", "odds", "api-client", "sdk"],
     "authors": [
-        { "name": "Live Tennis API" }
+        { "name": "Synapse Research Ltd", "homepage": "https://synapsereality.io" }
     ],
     "require": {
         "php": ">=8.1",
