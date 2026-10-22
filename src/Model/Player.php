@@ -36,6 +36,23 @@ final class Player extends Model
     /** ISO 8601 date string exactly as received. */
     public ?string $birthday = null;
 
+    /**
+     * Height in centimetres from the results archive's record of the same
+     * person. Single-player read only; paid tiers, null on a FREE key.
+     * Never inferred.
+     */
+    public ?int $height_cm = null;
+
+    /**
+     * `{rank, points, observed_on}` — the current position on the official
+     * ATP/WTA doubles table. Single-player read only; paid tiers, null on a
+     * FREE key, off the table, or last seen more than 21 days ago. Never
+     * copied into `ranking`.
+     *
+     * @var array<string, mixed>|null
+     */
+    public ?array $doubles_ranking = null;
+
     public ?bool $is_doubles_team = null;
 
     /**

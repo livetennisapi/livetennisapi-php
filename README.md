@@ -70,6 +70,7 @@ every 15 minutes; an always-on dashboard should run on BASIC or above.
 | `getMatchStatistics($id)` | `/matches/{id}/statistics` | ULTRA |
 | `searchPlayers($search, …)` | `/players` | FREE |
 | `getPlayer($id)` | `/players/{id}` | FREE |
+| `getPlayerStats($id, $from, $to, $surface, $level, $last)` | `/players/{id}/stats` | PRO (`serve_return` ULTRA) |
 | `listMarkets($id)` | `/markets` | PRO |
 | `getMarketPrices($id, $limit)` | `/markets/{id}/prices` | PRO |
 | `listMatchPrices($id, $limit, $minutes)` | `/matches/{id}/prices` | PRO |

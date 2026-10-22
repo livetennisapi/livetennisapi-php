@@ -27,6 +27,7 @@ final class ErrorFactory
         ['/charting', 'ULTRA'],
         ['/ws-token', 'ULTRA'],
         ['/webhooks', 'ULTRA'],
+        ['/stats', 'PRO'],
         ['/events', 'PRO'],
         ['/markets', 'PRO'],
         ['/prices', 'PRO'],

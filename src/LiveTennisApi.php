@@ -26,6 +26,7 @@ use LiveTennisApi\Model\MatchStatistics;
 use LiveTennisApi\Model\Model;
 use LiveTennisApi\Model\Page;
 use LiveTennisApi\Model\Player;
+use LiveTennisApi\Model\PlayerStats;
 use LiveTennisApi\Model\Price;
 use LiveTennisApi\Model\RallyMatch;
 use LiveTennisApi\Model\RankingListMeta;
@@ -225,6 +226,33 @@ final class LiveTennisApi
     public function getPlayer(int $playerId): ?Player
     {
         return Player::fromArray($this->requestArray("/players/{$playerId}"));
+    }
+
+    /**
+     * One player's record over our completed singles matches (2023 onward):
+     * W/L overall and by surface, venue, level and season, the set-based
+     * record, withdrawals and the last N matches. **PRO.** ULTRA adds
+     * `serve_return`, which is null below ULTRA.
+     *
+     * `$from`/`$to` are an ISO date or a UTC instant (default the 365 days
+     * ending now). `$surface` is `hard|clay|grass|indoor`, `$level` is
+     * `atp|wta|challenger|itf|juniors`, `$last` is 1–50 (server default 20).
+     * A doubles-team id is refused with 400 `doubles_not_supported`.
+     */
+    public function getPlayerStats(
+        int $playerId,
+        ?string $from = null,
+        ?string $to = null,
+        ?string $surface = null,
+        ?string $level = null,
+        ?int $last = null,
+    ): ?PlayerStats {
+        $params = array_filter(
+            ['from' => $from, 'to' => $to, 'surface' => $surface, 'level' => $level, 'last' => $last],
+            static fn ($v) => $v !== null,
+        );
+
+        return PlayerStats::fromArray($this->requestArray("/players/{$playerId}/stats", $params));
     }
 
     /**
