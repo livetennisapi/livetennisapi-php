@@ -53,10 +53,14 @@ final class PlayerStatsTest extends TestCase
         $this->assertSame(1, $records['withdrawals']['walkover']['received']);
         $this->assertCount(2, $records['recent']);
         $this->assertSame([2, 1], $records['recent'][0]['score']['sets']);
+        // The stored per-set lists pass through as held: a null inside games is
+        // an unknown set, kept in position, never 0 and never dropped.
+        $this->assertSame([[6, null, 7], [4, 6, 5]], $records['recent'][0]['score']['games']);
         $this->assertNull($records['recent'][1]['score']);
 
         $sr = $stats->serve_return;
         $this->assertSame(35, $sr['matches_with_stats']);
+        $this->assertSame(5, $sr['matches_incomplete'], 'the count left out of every sum passes through');
         $this->assertSame(1500, $sr['serve']['first_serve_in']['numerator']);
         $this->assertNull($sr['serve']['double_faults']['total']);
         $this->assertSame(0, $sr['serve']['double_faults']['matches']);
