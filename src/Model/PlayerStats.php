@@ -13,8 +13,9 @@ namespace LiveTennisApi\Model;
  * (tiebreaks, deciding sets, after winning or losing the first set,
  * comebacks, sets won and lost); `withdrawals` given and received;
  * `excluded` counts by reason; and `recent`, the last N matches newest
- * first with the score turned round to this player. A percentage is null,
- * never 0, on an empty sample.
+ * first with the score turned round to this player. A recent row's
+ * `opponent` is `?array`: null when the match row holds no opponent id. A
+ * percentage is null, never 0, on an empty sample.
  *
  * `serve_return` sums the measured per-match statistics over the window:
  * each ratio is `{numerator, denominator, pct, matches}`, each count
