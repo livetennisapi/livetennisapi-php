@@ -93,10 +93,23 @@ every 15 minutes; an always-on dashboard should run on BASIC or above.
 | `getMatchRally($matchId, …)` | `/history/matches/{id}/rally` | ULTRA |
 | `getChartingPlayer($name, $gender)` | `/charting/players` | ULTRA |
 | `getChartingMatch($id)` | `/charting/matches/{id}` | ULTRA |
-| `getWsToken()` | `/ws-token` | ULTRA |
+| `getWsToken($modelFields = true)` | `/ws-token` | ULTRA |
 | `createWebhook($url, $events)` | `POST /webhooks` | ULTRA⁴ |
 | `listWebhooks()` | `/webhooks` | ULTRA⁴ |
 | `deleteWebhook($id)` | `DELETE /webhooks/{id}` | ULTRA⁴ |
+
+**Score first (since 2026-10-23).** Every state leaves the push feed's score
+channels twice, and every `score` frame carries `model` beside `score`:
+`pending` the instant the state is accepted (the four model keys
+`win_probability_p1`, `danger`, `win_probability_p1_model`,
+`win_probability_meta` present and null) and `ready` once its model run
+finished, both with the same `score.sequence`. Dedup on
+`(match_id, score.sequence, model)`, apply each frame to the `sequence` it
+names, and read a frame with no `model` as `ready`. If you do not use the
+model fields, `getWsToken(false)` mints with `?model_fields=off`:
+`channels` then names the score-only pair (`match:{match_id}:score_only` /
+`slate:score_only`), one `off` frame per state with the model keys left out,
+and `model_fields` echoes `off`.
 
 ¹ Also unlocked by [History plans](https://livetennisapi.com/products) — a
 History grant works even on a free core key.

@@ -17,6 +17,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **`Player::$height_cm`** and **`Player::$doubles_ranking`**
   (`{rank, points, observed_on}`). Single-player read only, paid tiers;
   null on a FREE key.
+- **Score first.** Since 2026-10-23 every push-feed `score` frame carries
+  `model` beside `score` and a state leaves twice: `pending` the instant it
+  is accepted (the four model keys present and null) and `ready` once its
+  model run finished, both with the same `score.sequence`. Dedup on
+  `(match_id, score.sequence, model)`, and read a frame with no `model` as
+  `ready`. **`getWsToken(false)`** mints with `?model_fields=off` for the
+  score-only channels (one `off` frame per state, model keys left out),
+  which `WsToken::$channels` then names, and **`WsToken::$model_fields`**
+  echoes the switch. `getWsToken()` is unchanged.
 
 ## [1.2.0] — 2026-09-02
 

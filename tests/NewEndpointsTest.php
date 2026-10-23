@@ -281,6 +281,27 @@ final class NewEndpointsTest extends TestCase
         $this->assertSame(300, $token->expires_in);
         $this->assertSame('wss://api.livetennisapi.com/connection/websocket', $token->ws_url);
         $this->assertSame('slate:all', $token->channels['slate']);
+        $this->assertSame('on', $token->model_fields);
+        $this->assertStringNotContainsString('model_fields', (string) $mock->lastRequest()?->getUri());
+    }
+
+    public function testWsTokenModelFieldsOffReachesTheWireAndFollowsTheScoreOnlyVocabulary(): void
+    {
+        $mock = (new MockClient())->queueJson($this->fixture('ws_token_score_only'));
+        $token = $this->client($mock)->getWsToken(false);
+
+        $this->assertStringContainsString('/ws-token?model_fields=off', (string) $mock->lastRequest()?->getUri());
+        $this->assertSame('off', $token->model_fields);
+        $this->assertSame('slate:score_only', $token->channels['slate']);
+        $this->assertSame('match:{match_id}:score_only', $token->channels['match']);
+    }
+
+    public function testWsTokenWithoutTheEchoDecodesNull(): void
+    {
+        $token = WsToken::fromArray(['token' => 't', 'channels' => ['slate' => 'slate:all']]);
+
+        $this->assertNull($token->model_fields);
+        $this->assertSame('slate:all', $token->channels['slate']);
     }
 
     public function testHistoryPackagesDecode(): void

@@ -655,10 +655,22 @@ final class LiveTennisApi
     /**
      * Mint a short-lived connection token for the push WebSocket feed.
      * **ULTRA.** Mint a fresh token on reconnect rather than caching one.
+     *
+     * Since 2026-10-23 every state leaves the score channels twice, a
+     * `model: pending` frame the instant it is accepted (model keys null) and
+     * a `model: ready` frame once the model run finished. Dedup on
+     * `(match_id, score.sequence, model)`. Pass `$modelFields = false` if you
+     * do not use the model fields: the token is minted with
+     * `?model_fields=off`, `channels` then names the score-only pair
+     * (`match:{match_id}:score_only` / `slate:score_only`) with one
+     * `model: off` frame per state and the model keys left out, and
+     * `model_fields` echoes `off`.
      */
-    public function getWsToken(): ?WsToken
+    public function getWsToken(bool $modelFields = true): ?WsToken
     {
-        return WsToken::fromArray($this->requestArray('/ws-token'));
+        return WsToken::fromArray(
+            $this->requestArray('/ws-token', $modelFields ? [] : ['model_fields' => 'off']),
+        );
     }
 
     /**
