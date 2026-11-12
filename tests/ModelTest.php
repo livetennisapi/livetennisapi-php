@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace LiveTennisApi\Tests;
 
+use LiveTennisApi\Model\Fixture;
 use LiveTennisApi\Model\HistoryTapeRow;
 use LiveTennisApi\Model\ListMeta;
 use LiveTennisApi\Model\Page;
@@ -105,6 +106,106 @@ final class ModelTest extends TestCase
         // and absence must stay null — never become false.
         $this->assertNull($match->has_analysis);
         $this->assertNull($match->has_market);
+        // is_qualifying is three-valued: absence stays null — never false.
+        $this->assertNull($match->is_qualifying);
+        // pregame_forecasts is absent below ULTRA: null — never a guessed [].
+        $this->assertNull($match->pregame_forecasts);
+    }
+
+    public function testMatchQualifyingAndPregameForecasts(): void
+    {
+        $forecast = ['win_probability_p1' => 0.58, 'stage' => 'pregame'];
+        $match = TennisMatch::fromArray([
+            'id' => 1,
+            'is_qualifying' => true,
+            'pregame_forecasts' => [$forecast],
+        ]);
+        $this->assertInstanceOf(TennisMatch::class, $match);
+        $this->assertTrue($match->is_qualifying);
+        $this->assertSame([$forecast], $match->pregame_forecasts);
+
+        // False and null are different answers, and an empty list stays a list.
+        $main = TennisMatch::fromArray(['id' => 2, 'is_qualifying' => false, 'pregame_forecasts' => []]);
+        $this->assertInstanceOf(TennisMatch::class, $main);
+        $this->assertFalse($main->is_qualifying);
+        $this->assertSame([], $main->pregame_forecasts);
+
+        $unstated = TennisMatch::fromArray(['id' => 3, 'is_qualifying' => null]);
+        $this->assertInstanceOf(TennisMatch::class, $unstated);
+        $this->assertNull($unstated->is_qualifying);
+    }
+
+    public function testFixtureFieldsAreTyped(): void
+    {
+        $forecast = ['win_probability_p1' => 0.61, 'stage' => 'pregame', 'created_at' => '2026-09-24T07:00:00Z'];
+        $fixture = Fixture::fromArray([
+            'id' => 87,
+            'event_date' => '2026-09-25',
+            'start_time' => '2026-09-25T11:00:00Z',
+            'player1_id' => 925,
+            'player2_id' => null,
+            'tour' => 'wta',
+            'tournament' => 'Rome',
+            'round' => 'Quarter-finals',
+            'round_code' => 'QF',
+            'surface' => 'clay',
+            'player1_name' => 'M. Kessler',
+            'player2_name' => 'I. Jovic',
+            'status' => 'cancelled',
+            'reason' => 'walkover',
+            'match_id' => 48213,
+            'gender' => 'women',
+            'is_qualifying' => false,
+            'created_at' => '2026-09-23T08:00:00Z',
+            'updated_at' => '2026-09-24T10:30:00Z',
+            'pregame_forecasts' => [$forecast],
+        ]);
+        $this->assertInstanceOf(Fixture::class, $fixture);
+        $this->assertSame('2026-09-25T11:00:00Z', $fixture->start_time);
+        $this->assertSame(925, $fixture->player1_id);
+        $this->assertNull($fixture->player2_id);
+        $this->assertSame('QF', $fixture->round_code);
+        $this->assertSame('walkover', $fixture->reason);
+        $this->assertSame(48213, $fixture->match_id);
+        $this->assertSame('women', $fixture->gender);
+        $this->assertFalse($fixture->is_qualifying);
+        $this->assertSame('2026-09-23T08:00:00Z', $fixture->created_at);
+        $this->assertSame('2026-09-24T10:30:00Z', $fixture->updated_at);
+        $this->assertSame([$forecast], $fixture->pregame_forecasts);
+    }
+
+    public function testFixtureNullAndAbsentFieldsStayNull(): void
+    {
+        // Explicit nulls: no match yet, a mixed event, a draw never stated.
+        $nulls = Fixture::fromArray([
+            'id' => 88,
+            'start_time' => null,
+            'reason' => null,
+            'match_id' => null,
+            'gender' => null,
+            'is_qualifying' => null,
+            'created_at' => null,
+            'updated_at' => null,
+            'pregame_forecasts' => [],
+        ]);
+        $this->assertInstanceOf(Fixture::class, $nulls);
+        $this->assertNull($nulls->start_time);
+        $this->assertNull($nulls->reason);
+        $this->assertNull($nulls->match_id);
+        $this->assertNull($nulls->gender);
+        // Null means never stated, and null is not false.
+        $this->assertNull($nulls->is_qualifying);
+        $this->assertNull($nulls->created_at);
+        $this->assertNull($nulls->updated_at);
+        // An empty list is "no forecast yet" and stays a list.
+        $this->assertSame([], $nulls->pregame_forecasts);
+
+        // Below ULTRA the field is absent: null — never a guessed [].
+        $lower = Fixture::fromArray(['id' => 89]);
+        $this->assertInstanceOf(Fixture::class, $lower);
+        $this->assertNull($lower->pregame_forecasts);
+        $this->assertNull($lower->is_qualifying);
+        $this->assertNull($lower->match_id);
     }
 
     public function testReconstructedTapeRowIsNullTimestampAndNullModelFields(): void

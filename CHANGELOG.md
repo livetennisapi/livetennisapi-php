@@ -5,6 +5,27 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Added
+
+- **`Fixture` now types all 20 fields of API spec 1.13.82.** Seven are new on
+  the API side: `$reason` (`walkover|retired|cancelled|default|postponed`),
+  `$match_id` (the id of the match the fixture became, null until one
+  exists), `$gender` (`men|women`, null for mixed events), `$is_qualifying`,
+  `$created_at`, `$updated_at` and `$pregame_forecasts`. Four older fields
+  were never declared here and are added too: `$start_time`, `$player1_id`,
+  `$player2_id` and `$round_code`. `$is_qualifying` is `?bool`: null means
+  never stated, and null is not false. `$pregame_forecasts` is ULTRA only and
+  absent below ULTRA, so null means "not entitled" and `[]` means "no
+  forecast yet". Timestamps stay ISO 8601 strings exactly as received.
+- **`TennisMatch::$is_qualifying` / `$pregame_forecasts`** — the same two
+  fields on the match model. `$pregame_forecasts` rides on ULTRA
+  `status=upcoming` list rows only.
+
+All of these were already readable through `$raw` and `__get`. They are now
+declared, typed and documented.
+
 ## [1.2.0] — 2026-09-02
 
 ### Added

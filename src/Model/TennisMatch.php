@@ -120,6 +120,24 @@ final class TennisMatch extends Model
     public ?bool $has_market = null;
 
     /**
+     * Whether this match belongs to the qualifying draw. Three-valued: NULL
+     * means never stated, and NULL is not false. The qualifying draw shares
+     * the main draw's tournament name and round vocabulary, so branch on
+     * `round_code` and this flag together.
+     */
+    public ?bool $is_qualifying = null;
+
+    /**
+     * ULTRA only, on `status=upcoming` list rows (absent below ULTRA and on
+     * other statuses). The match's `stage: pregame` forecasts, oldest first,
+     * each in the `Analysis::$profile` shape. `[]` when none has been written
+     * yet. NULL means the field was not sent.
+     *
+     * @var list<array<string, mixed>>|null
+     */
+    public ?array $pregame_forecasts = null;
+
+    /**
      * History list rows only (`listCompletedMatches()`): what point-by-point
      * data we hold for this match — `{coverage, rows, reconstructed_rows}`.
      * `rows` counts rows we OBSERVED, not the length of the tape you will
